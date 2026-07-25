@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import LogoIcon from "../../onboarding/components/icons/LogoIcon";
+import LogoIcon from "../../../components/icons/onboarding/LogoIcon";
 
 export default function LandingPage() {
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import EyeIcon from "./icons/EyeIcon";
-import EyeOffIcon from "./icons/EyeOffIcon";
+import EyeIcon from "../../../components/icons/auth/EyeIcon";
+import EyeOffIcon from "../../../components/icons/auth/EyeOffIcon";
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -12,10 +12,17 @@ export default function LoginForm() {
   function handleSubmit(e) {
     e.preventDefault();
     setError("");
+    const identifier = e.currentTarget.email.value.trim().toLowerCase();
     setIsLoading(true);
     setTimeout(() => {
+      const role = resolveRole(identifier);
+      if (!role) {
+        setIsLoading(false);
+        setError("Akun tidak ditemukan. Gunakan akun demo UMKM atau Bank.");
+        return;
+      }
       setIsLoading(false);
-      navigate("/dashboard");
+      navigate(role === "bank" ? "/bank/dashboard" : "/dashboard");
     }, 1500);
   }
 
@@ -126,6 +133,33 @@ export default function LoginForm() {
           Mitra Bank? Gunakan akun institusi yang telah didaftarkan admin Anda.
         </p>
       </div>
+
+      <div className="mt-[18px] rounded-[8px] border border-dashed border-slate-200 bg-slate-50 px-[14px] py-[12px] text-left">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.06em] text-slate-500">
+          Akun Demo (POC)
+        </p>
+        <ul className="mt-[8px] space-y-[6px] text-[10px] leading-[1.5] text-slate-600">
+          <li>
+            <span className="font-semibold text-slate-700">UMKM:</span>{" "}
+            umkm@demo.id / 123456
+          </li>
+          <li>
+            <span className="font-semibold text-slate-700">Bank:</span>{" "}
+            bank@demo.id / bank123
+          </li>
+        </ul>
+      </div>
     </div>
   );
+}
+
+const DEMO_ACCOUNTS = {
+  "umkm@demo.id": { role: "umkm", password: "123456" },
+  "bank@demo.id": { role: "bank", password: "bank123" },
+};
+
+function resolveRole(identifier) {
+  const account = DEMO_ACCOUNTS[identifier];
+  if (!account) return null;
+  return account.role;
 }

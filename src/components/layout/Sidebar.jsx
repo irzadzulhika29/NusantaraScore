@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import LogoIcon from "../../features/onboarding/components/icons/LogoIcon";
+import LogoIcon from "../icons/onboarding/LogoIcon";
 
-const navRoutes = {
+const UMKM_ROUTES = {
   "Dashboard": "/dashboard",
   "Faktor & Rekomendasi": "/faktor",
   "Riwayat Skor": "/riwayat",
@@ -9,8 +9,9 @@ const navRoutes = {
   "Bantuan": "/bantuan",
 };
 
-export default function Sidebar({ menuItems }) {
+export default function Sidebar({ menuItems, routes, userName, userRole }) {
   const navigate = useNavigate();
+  const navRoutes = routes || UMKM_ROUTES;
 
   return (
     <aside className="fixed inset-y-0 left-0 z-30 flex w-[240px] flex-col bg-[#08264D] px-[14px] pb-[24px] pt-[34px] text-white">
@@ -41,7 +42,7 @@ export default function Sidebar({ menuItems }) {
             ].join(" ")}
           >
             <div className="flex items-center gap-[9px]">
-              {item.label === "Dashboard" ? <DashboardIcon /> : <MenuDocumentIcon />}
+              {item.label === "Dashboard" || item.label === "Ranking UMKM" ? <DashboardIcon /> : <MenuDocumentIcon />}
               <span className="text-[12px] font-semibold">{item.label}</span>
             </div>
             <StarIcon />
@@ -55,8 +56,8 @@ export default function Sidebar({ menuItems }) {
             <UserIcon />
           </div>
           <div>
-            <p className="text-[12px] font-semibold">Pak Budi</p>
-            <p className="text-[8px] text-white/65">Toko Grosir</p>
+            <p className="text-[12px] font-semibold">{userName || "Pak Budi"}</p>
+            <p className="text-[8px] text-white/65">{userRole || "Toko Grosir"}</p>
           </div>
         </div>
         <button
