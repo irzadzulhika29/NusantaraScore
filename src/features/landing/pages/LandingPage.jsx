@@ -5,12 +5,12 @@ export default function LandingPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#F8F6F1] font-sans text-[#18243A]">
+    <div className="min-h-screen bg-[#F8F6F1] font-sans text-[#18243A]" style={{ zoom: 1.25 }}>
       {/* =========================================================
           HERO + NAVBAR
       ========================================================== */}
       <section className="bg-[#213A64] text-white">
-        <div className="mx-auto max-w-[1180px] px-6 lg:px-10">
+        <div className="mx-auto max-w-[1475px] px-6 lg:px-10">
           <nav className="flex h-[72px] items-center justify-between">
             <a href="/" className="flex items-center gap-2">
               <div className="flex h-[36px] w-[36px] items-center justify-center rounded-full border-2 border-white">
@@ -40,10 +40,10 @@ export default function LandingPage() {
               <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.16em] text-[#31B879]">
                 <span className="h-px w-6 bg-[#31B879]" />Graduation Intelligence Platform · Berbasis Data QRIS
               </div>
-              <h1 className="mt-7 max-w-[670px] text-[45px] font-bold leading-[1.05] tracking-[-0.04em] sm:text-[55px] lg:text-[65px]">
+              <h1 className="mt-7 max-w-[838px] text-[45px] font-bold leading-[1.05] tracking-[-0.04em] sm:text-[55px] lg:text-[65px]">
                 38,1 Juta UMKM<br />punya data.<br /><span className="text-[#F5A72D]">Tapi belum terbaca.</span>
               </h1>
-              <p className="mt-7 max-w-[650px] text-[14px] leading-7 text-white/75">
+              <p className="mt-7 max-w-[813px] text-[14px] leading-7 text-white/75">
                 Kami menerjemahkan riwayat transaksi QRIS menjadi{" "}
                 <strong className="text-white">Skor Kelayakan Bisnis (Graduation Score).</strong>{" "}
                 Memberikan kejelasan bagi UMKM untuk berkembang, dan keyakinan objektif bagi perbankan untuk menyalurkan modal.
@@ -56,7 +56,7 @@ export default function LandingPage() {
                   Saya Mitra Bank →
                 </button>
               </div>
-              <div className="mt-14 grid max-w-[660px] grid-cols-3 border-t border-white/15 pt-7">
+              <div className="mt-14 grid max-w-[825px] grid-cols-3 border-t border-white/15 pt-7">
                 <Stat value="Rp2.400T" label="Potensi Kredit UMKM" />
                 <Stat value="38,1 Juta" label="Pengguna QRIS Aktif" />
                 <Stat value="5 Dimensi" label="Analisis Kesehatan Bisnis" />
@@ -77,14 +77,14 @@ export default function LandingPage() {
           PROBLEM
       ========================================================== */}
       <section id="tentang" className="py-16 lg:py-24">
-        <div className="mx-auto max-w-[1120px] px-6">
+        <div className="mx-auto max-w-[1400px] px-6">
           <SectionEyebrow>Masalah yang diselesaikan</SectionEyebrow>
           <h2 className="mt-3 text-center text-[16px] font-medium text-[#3E4652]">Satu celah, dua perspektif</h2>
           <div className="mt-14 grid gap-12 md:grid-cols-2 md:gap-0">
             <div className="md:border-r md:border-[#DDD9D1] md:pr-12">
               <p className="text-[10px] font-semibold text-[#E6A126]">Dari sisi UMKM</p>
               <h3 className="mt-7 text-[21px] font-medium">Tidak tahu seberapa siap</h3>
-              <p className="mt-4 max-w-[430px] text-[13px] leading-6 text-[#70747B]">Pengajuan kredit seringkali menjadi proses trial & error yang melelahkan karena kurangnya panduan yang jelas mengenai standar kelayakan.</p>
+              <p className="mt-4 max-w-[538px] text-[13px] leading-6 text-[#70747B]">Pengajuan kredit seringkali menjadi proses trial & error yang melelahkan karena kurangnya panduan yang jelas mengenai standar kelayakan.</p>
               <ProblemItem>Dokumen persyaratan terasa membingungkan dan sulit dipenuhi.</ProblemItem>
               <ProblemItem>Takut ditolak berulang kali yang merusak reputasi.</ProblemItem>
               <ProblemItem>Tergoda pinjaman informal dengan bunga tidak masuk akal.</ProblemItem>
@@ -96,7 +96,7 @@ export default function LandingPage() {
             <div className="md:pl-12">
               <p className="text-[10px] font-semibold text-[#617AA9]">Dari sisi Bank/Penyalur</p>
               <h3 className="mt-7 text-[21px] font-medium">Identifikasi UMKM yang masih manual</h3>
-              <p className="mt-4 max-w-[430px] text-[13px] leading-6 text-[#70747B]">Proses akuisisi dan verifikasi calon debitur memakan biaya operasional tinggi karena survei lapangan yang masih mengandalkan intuisi.</p>
+              <p className="mt-4 max-w-[538px] text-[13px] leading-6 text-[#70747B]">Proses akuisisi dan verifikasi calon debitur memakan biaya operasional tinggi karena survei lapangan yang masih mengandalkan intuisi.</p>
               <ProblemItem dark>Sulit membedakan UMKM produktif dan yang berisiko gagal bayar.</ProblemItem>
               <ProblemItem dark>Data terfragmentasi di berbagai sistem, sulit dikonsolidasi.</ProblemItem>
               <ProblemItem dark>Target penyaluran kredit tidak tercapai secara efisien.</ProblemItem>
@@ -113,10 +113,10 @@ export default function LandingPage() {
           WHY GRADUATION INTELLIGENCE
       ========================================================== */}
       <section id="cara-kerja" className="pb-20 pt-8">
-        <div className="mx-auto max-w-[1120px] px-6">
+        <div className="mx-auto max-w-[1400px] px-6">
           <SectionEyebrow>Kenapa Graduation Intelligence</SectionEyebrow>
           <h2 className="mt-5 text-center text-[35px] font-medium tracking-[-0.025em] text-[#303846]">Bukan sekadar skor lolos atau tidak lolos.</h2>
-          <p className="mx-auto mt-4 max-w-[870px] text-center text-[13px] leading-6 text-[#8290A4]">Scoring konvensional menghasilkan satu angka. Graduation Intelligence menghasilkan peta jalan untuk UMKM yang ingin bersiap, dan bank yang ingin memilih lebih tepat.</p>
+          <p className="mx-auto mt-4 max-w-[1088px] text-center text-[13px] leading-6 text-[#8290A4]">Scoring konvensional menghasilkan satu angka. Graduation Intelligence menghasilkan peta jalan untuk UMKM yang ingin bersiap, dan bank yang ingin memilih lebih tepat.</p>
           <div className="mt-12 grid gap-7 lg:grid-cols-[1.25fr_0.85fr]">
             <div className="overflow-hidden rounded-[10px] bg-white shadow-sm">
               <div className="grid grid-cols-2 text-[11px] font-semibold text-white">
@@ -145,8 +145,8 @@ export default function LandingPage() {
       <section className="grid lg:grid-cols-2">
         <div id="umkm" className="relative overflow-hidden bg-[#20A769] px-8 py-16 text-white lg:px-[10%] lg:py-20">
           <p className="text-[9px] uppercase tracking-[0.12em] text-white/65">Untuk pelaku pemilik usaha</p>
-          <h2 className="mt-6 max-w-[440px] text-[36px] font-bold leading-[1.12]">Anda sudah bertransaksi setiap hari.<br />Biarkan datanya bicara.</h2>
-          <p className="mt-6 max-w-[440px] text-[13px] leading-6 text-white/75">Cek Graduation Readiness Score Anda, seberapa siap usaha Anda untuk KUR Kecil. Gratis. Tanpa syarat laporan keuangan.</p>
+          <h2 className="mt-6 max-w-[550px] text-[36px] font-bold leading-[1.12]">Anda sudah bertransaksi setiap hari.<br />Biarkan datanya bicara.</h2>
+          <p className="mt-6 max-w-[550px] text-[13px] leading-6 text-white/75">Cek Graduation Readiness Score Anda, seberapa siap usaha Anda untuk KUR Kecil. Gratis. Tanpa syarat laporan keuangan.</p>
           <div className="mt-7 space-y-4">
             <CheckItem>Pahami kesiapan usaha sebelum mengajukan</CheckItem>
             <CheckItem>Dapatkan panduan perbaikan konkret per faktor</CheckItem>
@@ -160,8 +160,8 @@ export default function LandingPage() {
         </div>
         <div id="bank" className="relative overflow-hidden bg-[#213A64] px-8 py-16 text-white lg:px-[10%] lg:py-20">
           <p className="text-[9px] uppercase tracking-[0.12em] text-white/55">Untuk mitra bank & penyalur KUR</p>
-          <h2 className="mt-6 max-w-[450px] text-[36px] font-bold leading-[1.12]">Identifikasi UMKM potensial dari data, bukan asumsi.</h2>
-          <p className="mt-6 max-w-[440px] text-[13px] leading-6 text-white/65">Ranking UMKM berdasarkan Graduation Readiness Score dengan explainable insight yang bisa Anda verifikasi dan audit.</p>
+          <h2 className="mt-6 max-w-[563px] text-[36px] font-bold leading-[1.12]">Identifikasi UMKM potensial dari data, bukan asumsi.</h2>
+          <p className="mt-6 max-w-[550px] text-[13px] leading-6 text-white/65">Ranking UMKM berdasarkan Graduation Readiness Score dengan explainable insight yang bisa Anda verifikasi dan audit.</p>
           <div className="mt-7 space-y-4 text-[12px]">
             <CheckItem right>Pipeline calon debitur yang lebih berkualitas</CheckItem>
             <CheckItem right>Setiap skor dapat dijelaskan ke tim underwriting</CheckItem>
@@ -176,7 +176,7 @@ export default function LandingPage() {
           VALIDATION
       ========================================================== */}
       <section className="py-20">
-        <div className="mx-auto max-w-[950px] px-6">
+        <div className="mx-auto max-w-[1188px] px-6">
           <SectionEyebrow>Validasi & Bukti</SectionEyebrow>
           <h2 className="mt-5 text-center text-[34px] font-medium tracking-[-0.02em] text-[#333B48]">Apa yang sudah kami pelajari</h2>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
@@ -211,11 +211,11 @@ export default function LandingPage() {
           FINAL CTA
       ========================================================== */}
       <section className="bg-[#213A64] py-20 text-white">
-        <div className="mx-auto max-w-[930px] px-6">
+        <div className="mx-auto max-w-[1163px] px-6">
           <SectionEyebrow dark>Mulai Sekarang</SectionEyebrow>
           <h2 className="mt-5 text-center text-[40px] font-bold leading-tight">Datanya sudah ada.<br /><span className="text-[#F4A62C]">Tinggal dibaca.</span></h2>
-          <p className="mx-auto mt-5 max-w-[570px] text-center text-[12px] leading-6 text-white/60">Mulai dengan mengecek kesiapan usaha Anda, atau hubungi kami untuk mendiskusikan program pilot mitra bank.</p>
-          <div className="mx-auto mt-12 grid max-w-[750px] gap-5 md:grid-cols-2">
+          <p className="mx-auto mt-5 max-w-[713px] text-center text-[12px] leading-6 text-white/60">Mulai dengan mengecek kesiapan usaha Anda, atau hubungi kami untuk mendiskusikan program pilot mitra bank.</p>
+          <div className="mx-auto mt-12 grid max-w-[938px] gap-5 md:grid-cols-2">
             <div className="rounded-[12px] bg-white p-6 text-[#172A46]">
               <span className="rounded-full bg-[#E7F8EE] px-3 py-1 text-[8px] font-semibold text-[#15995D]">Untuk UMKM</span>
               <h3 className="mt-4 text-[15px] font-bold">Cek kesiapan usaha Anda</h3>
@@ -250,7 +250,7 @@ export default function LandingPage() {
 
 function ScorePreviewCard() {
   return (
-    <div className="relative z-10 w-full max-w-[350px] rounded-[20px] bg-white p-7 text-[#172A46] shadow-[0_25px_70px_rgba(5,18,40,0.3)]">
+    <div className="relative z-10 w-full max-w-[438px] rounded-[20px] bg-white p-7 text-[#172A46] shadow-[0_25px_70px_rgba(5,18,40,0.3)]">
       <div className="flex justify-between">
         <div>
           <p className="text-[8px] uppercase tracking-[0.1em] text-[#8A95A5]">Simulasi UMKM</p>
