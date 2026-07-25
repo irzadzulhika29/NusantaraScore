@@ -38,7 +38,7 @@ export default function LoginForm() {
           <input
             id="email"
             type="text"
-            placeholder="Contoh: budi@umkm.id"
+            placeholder="Email atau NIK/NIB"
             className="h-[36px] w-full rounded-[8px] border-[1.5px] border-[#233A63] bg-white px-3 text-[12px] text-slate-700 outline-none transition focus:ring-2 focus:ring-[#233A63]/10 placeholder:text-[#9CA3AF]"
           />
         </div>
@@ -60,7 +60,7 @@ export default function LoginForm() {
             <input
               id="password"
               type={showPassword ? "text" : "password"}
-              placeholder="Masukkan kata sandi"
+              placeholder="Kata sandi"
               className={`h-[36px] w-full rounded-[8px] bg-white px-3 pr-10 text-[12px] text-slate-700 outline-none transition focus:ring-2 ${
                 error
                   ? "border border-red-500 focus:ring-red-100"
