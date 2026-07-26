@@ -1,121 +1,67 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import EyeIcon from "../../../components/icons/auth/EyeIcon";
-import EyeOffIcon from "../../../components/icons/auth/EyeOffIcon";
 
 export default function LoginForm() {
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    setError("");
-    const identifier = e.currentTarget.email.value.trim().toLowerCase();
-    setIsLoading(true);
-    setTimeout(() => {
-      const role = resolveRole(identifier);
-      if (!role) {
-        setIsLoading(false);
-        setError("Akun tidak ditemukan. Gunakan akun demo UMKM atau Bank.");
-        return;
-      }
-      setIsLoading(false);
-      navigate(role === "bank" ? "/bank/dashboard" : "/dashboard");
-    }, 1500);
-  }
 
   return (
-    <div className="w-full max-w-[365px] rounded-[10px] border border-slate-200 bg-white px-[27px] py-[27px] shadow-[0_10px_30px_rgba(15,23,42,0.04)]">
+    <div className="w-full max-w-[380px] rounded-[10px] border border-slate-200 bg-white px-[27px] py-[27px] shadow-[0_10px_30px_rgba(15,23,42,0.04)]">
       <div>
         <h2 className="text-[21px] font-bold tracking-[-0.02em] text-[#1F2937]">
           Masuk ke akun Anda
         </h2>
         <p className="mt-1 text-[12px] text-slate-400">
-          Masuk sebagai UMKM atau Mitra Bank
+          Pilih portal masuk sesuai dengan jenis akun Anda
         </p>
       </div>
 
-      <form className="mt-[26px]" onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email" className="mb-2 block text-[12px] font-semibold text-slate-800">
-            Email atau NIK/NIB
-          </label>
-          <input
-            id="email"
-            type="text"
-            placeholder="Email atau NIK/NIB"
-            className="h-[36px] w-full rounded-[8px] border-[1.5px] border-[#233A63] bg-white px-3 text-[12px] text-slate-700 outline-none transition focus:ring-2 focus:ring-[#233A63]/10 placeholder:text-[#9CA3AF]"
-          />
-        </div>
-
-        <div className="mt-[20px]">
-          <div className="mb-2 flex items-center justify-between">
-            <label htmlFor="password" className="text-[12px] font-semibold text-slate-800">
-              Kata Sandi
-            </label>
-            <button
-              type="button"
-              className="text-[12px] font-medium text-emerald-600 transition hover:text-emerald-700"
-            >
-              Lupa kata sandi?
-            </button>
-          </div>
-
-          <div className="relative">
-            <input
-              id="password"
-              type={showPassword ? "text" : "password"}
-              placeholder="Kata sandi"
-              className={`h-[36px] w-full rounded-[8px] bg-white px-3 pr-10 text-[12px] text-slate-700 outline-none transition focus:ring-2 ${
-                error
-                  ? "border border-red-500 focus:ring-red-100"
-                  : "border-[1.5px] border-[#233A63] focus:ring-[#233A63]/10"
-              } placeholder:text-[#9CA3AF]`}
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword((prev) => !prev)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 transition hover:text-slate-600"
-              aria-label={showPassword ? "Sembunyikan kata sandi" : "Tampilkan kata sandi"}
-            >
-              {showPassword ? <EyeIcon /> : <EyeOffIcon />}
-            </button>
-          </div>
-
-          {error && (
-            <div className="mt-[6px] flex items-center gap-1 text-[10px] font-medium text-red-500">
-              <span className="flex h-[10px] w-[10px] items-center justify-center rounded-full border border-red-500 text-[7px]">
-                !
-              </span>
-              <span>{error}</span>
+      <div className="mt-[22px]">
+        <div className="space-y-[12px]">
+          <button
+            type="button"
+            onClick={() => navigate("/dashboard")}
+            className="group flex w-full items-center gap-3.5 rounded-[10px] border border-slate-200 bg-white p-[14px] text-left transition hover:border-[#233A63] hover:bg-[#233A63]/[0.02] hover:shadow-sm cursor-pointer"
+          >
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#233A63]/10 text-[#233A63] transition group-hover:bg-[#233A63] group-hover:text-white">
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
             </div>
-          )}
+            <div className="flex-1 min-w-0">
+              <div className="text-[13px] font-bold text-slate-800">Masuk sebagai UMKM</div>
+              <div className="mt-0.5 text-[11px] leading-tight text-slate-400">Untuk pelaku usaha dan pemilik UMKM</div>
+            </div>
+            <div className="text-slate-300 transition group-hover:translate-x-1 group-hover:text-[#233A63]">
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => navigate("/bank/dashboard")}
+            className="group flex w-full items-center gap-3.5 rounded-[10px] border border-slate-200 bg-white p-[14px] text-left transition hover:border-[#233A63] hover:bg-[#233A63]/[0.02] hover:shadow-sm cursor-pointer"
+          >
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#233A63]/10 text-[#233A63] transition group-hover:bg-[#233A63] group-hover:text-white">
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-[13px] font-bold text-slate-800">Masuk sebagai BANK</div>
+              <div className="mt-0.5 text-[11px] leading-tight text-slate-400">Untuk mitra perbankan & analis kredit</div>
+            </div>
+            <div className="text-slate-300 transition group-hover:translate-x-1 group-hover:text-[#233A63]">
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </button>
         </div>
 
-        <button
-          type="submit"
-          disabled={isLoading}
-          className={`mt-[27px] flex h-[40px] w-full items-center justify-center gap-3 rounded-[6px] text-[12px] font-semibold text-white transition ${
-            isLoading
-              ? "cursor-not-allowed bg-[#344C77]"
-              : "cursor-pointer bg-[#233A63] hover:bg-[#1a2d4f]"
-          }`}
-        >
-          {isLoading ? (
-            <>
-              <span className="h-[17px] w-[17px] animate-spin rounded-full border-[3px] border-white/40 border-t-white" />
-              Memverifikasi...
-            </>
-          ) : (
-            "Masuk"
-          )}
-        </button>
-
-        <div className="my-[27px] flex items-center gap-3">
+        <div className="my-[24px] flex items-center gap-3">
           <div className="h-px flex-1 bg-slate-200" />
-          <span className="text-[11px] text-slate-400">atau</span>
+          <span className="text-[11px] text-slate-400">atau belum punya akun?</span>
           <div className="h-px flex-1 bg-slate-200" />
         </div>
 
@@ -126,40 +72,13 @@ export default function LoginForm() {
         >
           Daftar sebagai UMKM Baru
         </button>
-      </form>
-
-      <div className="mt-[27px] border-t border-slate-100 pt-[20px] text-center">
-        <p className="mx-auto max-w-[270px] text-[10px] leading-[1.5] text-slate-400">
-          Mitra Bank? Gunakan akun institusi yang telah didaftarkan admin Anda.
-        </p>
       </div>
 
-      <div className="mt-[18px] rounded-[8px] border border-dashed border-slate-200 bg-slate-50 px-[14px] py-[12px] text-left">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.06em] text-slate-500">
-          Akun Demo (POC)
+      <div className="mt-[22px] border-t border-slate-100 pt-[18px] text-center">
+        <p className="mx-auto max-w-[280px] text-[10px] leading-[1.5] text-slate-400">
+          Mode Proof of Concept (POC): Anda dapat langsung masuk ke portal dashboard tanpa memasukkan kredensial kata sandi.
         </p>
-        <ul className="mt-[8px] space-y-[6px] text-[10px] leading-[1.5] text-slate-600">
-          <li>
-            <span className="font-semibold text-slate-700">UMKM:</span>{" "}
-            umkm@demo.id / 123456
-          </li>
-          <li>
-            <span className="font-semibold text-slate-700">Bank:</span>{" "}
-            bank@demo.id / bank123
-          </li>
-        </ul>
       </div>
     </div>
   );
-}
-
-const DEMO_ACCOUNTS = {
-  "umkm@demo.id": { role: "umkm", password: "123456" },
-  "bank@demo.id": { role: "bank", password: "bank123" },
-};
-
-function resolveRole(identifier) {
-  const account = DEMO_ACCOUNTS[identifier];
-  if (!account) return null;
-  return account.role;
 }

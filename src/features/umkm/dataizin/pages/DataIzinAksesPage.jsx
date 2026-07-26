@@ -77,7 +77,7 @@ function DataSourceRow({ source, active, onToggle, last }) {
         <p className="mt-[4px] text-[12px] text-[#7C8BA4]">{active && source.id !== "qris" ? "Aktif sejak 15 Juni 2026" : source.subtitle}</p>
       </div>
       <span className={["mr-[6px] rounded-full border px-[11px] py-[4px] text-[8px] font-medium", required ? "border-[#BBC3D0] bg-[#F1F3F7] text-[#173154]" : active ? "border-transparent bg-[#E8F7EF] text-[#14975B]" : "border-[#9CA6B5] bg-white text-[#68778D]"].join(" ")}>
-        {required ? "Data Utama Â· Wajib" : "Opsional"}
+        {required ? "Data Utama • Wajib" : "Opsional"}
       </span>
       <div className="flex min-w-[48px] flex-col items-end">
         <Toggle checked={active} disabled={required} onClick={onToggle} />

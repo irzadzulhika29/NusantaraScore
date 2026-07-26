@@ -1,10 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LogoIcon from "../../../../components/icons/onboarding/LogoIcon";
 
 export default function ScoreCalculationPage() {
   const navigate = useNavigate();
-  const [isCalculating] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const [isNavigating, setIsNavigating] = useState(false);
+
+  useEffect(() => {
+    const startTime = Date.now();
+    const duration = 4000;
+
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const currentProgress = Math.min(100, Math.floor((elapsed / duration) * 100));
+      setProgress(currentProgress);
+
+      if (elapsed >= duration) {
+        clearInterval(interval);
+        setIsNavigating(true);
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 1200);
+      }
+    }, 40);
+
+    return () => clearInterval(interval);
+  }, [navigate]);
 
   const steps = [
     { number: 1, label: "Mulai", status: "completed" },
@@ -33,7 +55,10 @@ export default function ScoreCalculationPage() {
   ];
 
   const handleViewScore = () => {
-    navigate("/graduation-score");
+    setIsNavigating(true);
+    setTimeout(() => {
+      navigate("/dashboard");
+    }, 400);
   };
 
   return (
@@ -62,7 +87,8 @@ export default function ScoreCalculationPage() {
             Sudah punya akun?{" "}
             <button
               type="button"
-              className="font-semibold text-white transition hover:text-white/80"
+              onClick={() => navigate("/login")}
+              className="font-semibold text-white transition hover:text-white/80 cursor-pointer"
             >
               Masuk
             </button>
@@ -118,22 +144,20 @@ export default function ScoreCalculationPage() {
           {/* ================= TITLE ================= */}
           <div className="text-center">
             <h1 className="mx-auto max-w-[450px] text-[26px] font-bold leading-[1.18] tracking-[-0.025em] text-[#10294E]">
-              Pendaftaran selesai! Skor pertama
-              <br />
-              Anda sedang dihitung.
+              {isNavigating
+                ? "Penghitungan Selesai!"
+                : "Pendaftaran selesai! Skor pertama Anda sedang dihitung."}
             </h1>
 
-            <p className="mx-auto mt-[43px] max-w-[480px] text-[14px] leading-[1.7] text-[#7485A3]">
-              Kami sedang menganalisis data transaksi QRIS Anda. Biasanya
-              <br />
-              membutuhkan 1–3 menit. Anda akan melihat Graduation
-              <br />
-              Readiness Score Anda di halaman berikutnya.
+            <p className="mx-auto mt-[24px] max-w-[480px] text-[14px] leading-[1.7] text-[#7485A3]">
+              {isNavigating
+                ? "Membuka Dashboard Hasil Analisis Kredit Nusantara Score..."
+                : "Kami sedang menganalisis data transaksi QRIS Anda. Anda akan otomatis dialihkan ke Dashboard."}
             </p>
           </div>
 
           {/* ================= PERMISSIONS ================= */}
-          <div className="mt-[55px] rounded-[15px] border border-[#DED3C1] bg-white px-[22px] pb-[19px] pt-[23px]">
+          <div className="mt-[40px] rounded-[15px] border border-[#DED3C1] bg-white px-[22px] pb-[19px] pt-[23px]">
             <h2 className="text-[13px] font-bold text-[#172942]">
               Data yang Anda izinkan:
             </h2>
@@ -176,27 +200,38 @@ export default function ScoreCalculationPage() {
             </div>
           </div>
 
-          {/* ================= CALCULATION STATUS ================= */}
-          <div className="mt-[57px]">
-            {/* Progress */}
-            <div className="h-[5px] w-full overflow-hidden rounded-full bg-[#DFE8FF]">
+          {/* ================= CALCULATION STATUS & LOADING ANIMATION ================= */}
+          <div className="mt-[40px]">
+            {/* Progress Bar */}
+            <div className="h-[8px] w-full overflow-hidden rounded-full bg-[#DFE8FF]">
               <div
-                className={[
-                  "h-full rounded-full bg-[#F2A33B]",
-                  isCalculating ? "w-[18%]" : "w-full",
-                ].join(" ")}
+                className={`h-full rounded-full transition-all duration-100 ease-out ${
+                  progress === 100 ? "bg-[#20A66B]" : "bg-[#F2A33B]"
+                }`}
+                style={{ width: `${progress}%` }}
               />
             </div>
 
-            {/* Status */}
-            <div className="mt-[13px] flex items-center justify-center gap-[7px] text-[#E99321]">
-              <span className="h-[7px] w-[7px] rounded-full bg-[#F0A033]" />
-
-              <p className="text-[14px] font-medium">
-                {isCalculating
-                  ? "Menghitung skor..."
-                  : "Skor selesai dihitung"}
-              </p>
+            {/* Status Indicator */}
+            <div className="mt-[16px] flex flex-col items-center justify-center gap-[8px]">
+              {!isNavigating ? (
+                <div className="flex items-center gap-[9px] text-[#E99321]">
+                  <span className="relative flex h-[10px] w-[10px]">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#F0A033] opacity-75" />
+                    <span className="relative inline-flex h-[10px] w-[10px] rounded-full bg-[#F0A033]" />
+                  </span>
+                  <p className="text-[14px] font-semibold">
+                    Menghitung skor... {progress}%
+                  </p>
+                </div>
+              ) : (
+                <div className="flex items-center gap-[9px] text-[#20A66B]">
+                  <span className="h-[20px] w-[20px] animate-spin rounded-full border-[3px] border-[#20A66B]/30 border-t-[#20A66B]" />
+                  <p className="text-[14px] font-bold">
+                    100% Selesai! Mengalihkan ke Dashboard...
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 
@@ -204,11 +239,24 @@ export default function ScoreCalculationPage() {
           <button
             type="button"
             onClick={handleViewScore}
-            className="mt-[57px] flex h-[44px] w-full items-center justify-center gap-[9px] rounded-[8px] bg-[#20A66B] text-[14px] font-semibold text-white shadow-[0_5px_12px_rgba(32,166,107,0.18)] transition hover:bg-[#178D5A] active:scale-[0.995]"
+            disabled={isNavigating}
+            className={`mt-[40px] flex h-[44px] w-full items-center justify-center gap-[9px] rounded-[8px] text-[14px] font-semibold text-white shadow-[0_5px_12px_rgba(32,166,107,0.18)] transition active:scale-[0.995] ${
+              isNavigating
+                ? "bg-[#178D5A] cursor-not-allowed opacity-90"
+                : "bg-[#20A66B] hover:bg-[#178D5A] cursor-pointer"
+            }`}
           >
-            Lihat Skor Graduation Saya
-
-            <ArrowRightIcon />
+            {isNavigating ? (
+              <>
+                <span className="h-[16px] w-[16px] animate-spin rounded-full border-[2.5px] border-white/40 border-t-white" />
+                Membuka Dashboard...
+              </>
+            ) : (
+              <>
+                Lihat Skor Graduation Saya
+                <ArrowRightIcon />
+              </>
+            )}
           </button>
         </section>
       </main>

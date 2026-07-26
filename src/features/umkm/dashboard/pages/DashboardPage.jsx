@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "../../../../components/layout/DashboardLayout";
 
@@ -45,32 +46,24 @@ export default function DashboardPage() {
         <section className="flex min-h-[527px] flex-col rounded-[12px] border border-[#CBD2DC] bg-white px-[24px] pb-[35px] pt-[26px]">
           <span className="self-start rounded-full border border-[#C6D5EF] bg-[#EDF3FF] px-[11px] py-[3px] text-[8px] font-medium uppercase tracking-[0.1em] text-[#7790BB]">Model: Tahap Simulasi POC</span>
           <div className="flex flex-1 items-center justify-center">
-            <div className="relative flex h-[195px] w-[195px] items-center justify-center rounded-full bg-[#20A56B]">
-              <div className="flex h-[165px] w-[165px] flex-col items-center justify-center rounded-full bg-white">
-                <p className="text-[39px] font-bold leading-none text-[#102A51]">78%</p>
-                <p className="mt-[5px] text-[10px] text-[#333A45]">Kesehatan Bisnis</p>
-                <div className="mt-[12px] flex items-center gap-[5px] rounded-full bg-[#7DEBB1] px-[14px] py-[5px]">
-                  <BadgeIcon /> <span className="text-[10px] font-semibold text-[#167C51]">Siap Naik Kelas</span>
-                </div>
-              </div>
-            </div>
+            <ScoreGauge score={78} />
           </div>
           <div className="mb-[12px] flex items-center justify-between text-[10px]">
             <div className="flex items-center gap-[4px] text-[#50545B]"><RefreshIcon /> <span>Sumber: data transaksi QRIS</span></div>
             <span className="font-semibold text-[#19365F]">Hari ini, 09:42</span>
           </div>
           <div className="grid grid-cols-3 gap-[8px]">
-            <MetricCard title="STABILITAS" value="72%" valueClass="text-[#102A51]" />
-            <MetricCard title="PERTUMBUHAN" value="84%" valueClass="text-[#1DA266]" />
-            <MetricCard title="KETAHANAN" value="65%" valueClass="text-[#E89A27]" />
+            <MetricCard title="STABILITAS" targetValue={72} valueClass="text-[#102A51]" />
+            <MetricCard title="PERTUMBUHAN" targetValue={84} valueClass="text-[#1DA266]" />
+            <MetricCard title="KETAHANAN" targetValue={65} valueClass="text-[#E89A27]" />
           </div>
         </section>
         <section>
-          <h1 className="text-[27px] font-bold leading-tight tracking-[-0.025em] text-[#0D274F]">Selamat pagi, Pak Andi ??</h1>
+          <h1 className="text-[27px] font-bold leading-tight tracking-[-0.025em] text-[#0D274F]">Selamat pagi, Pak Andi 👋</h1>
           <p className="mt-[5px] text-[12px] text-[#535A64]">Toko Grosir Pak Andi · Jakarta Timur</p>
           <div className="mb-[12px] mt-[27px] flex items-center justify-between">
             <h2 className="text-[10px] font-bold uppercase tracking-[0.05em] text-[#4B4F56]">Faktor yang perlu perhatian</h2>
-            <button type="button" onClick={() => navigate("/faktor")} className="text-[9px] font-semibold text-[#172943] hover:underline">Lihat Semua Faktor</button>
+            <button type="button" onClick={() => navigate("/faktor")} className="text-[9px] font-semibold text-[#172943] hover:underline cursor-pointer">Lihat Semua Faktor</button>
           </div>
           <div className="space-y-[12px]">{factors.map((factor) => (<FactorCard key={factor.title} {...factor} />))}</div>
         </section>
@@ -94,21 +87,21 @@ export default function DashboardPage() {
                 </div>
               </div>
             </div>
-            <button type="button" className="mt-[19px] flex h-[40px] items-center gap-[10px] rounded-full bg-[#77F2AD] px-[24px] text-[11px] font-bold text-[#0B3A36] transition hover:bg-[#62E69B]">
+            <button type="button" className="mt-[19px] flex h-[40px] items-center gap-[10px] rounded-full bg-[#77F2AD] px-[24px] text-[11px] font-bold text-[#0B3A36] transition hover:bg-[#62E69B] cursor-pointer">
               Lihat Bank Rekomendasi <ArrowRightIcon />
             </button>
           </div>
           <div className="flex flex-col justify-center">
             <div>
               <div className="relative h-[12px] overflow-hidden rounded-full bg-gradient-to-r from-[#D52F24] via-[#F1A22D] via-60% to-[#20A468]">
-                <span className="absolute left-[78%] top-[-4px] h-[20px] w-[4px] rounded-full bg-white shadow" />
+                <span className="absolute left-[78%] top-[-4px] h-[20px] w-[4px] rounded-full bg-white shadow transition-all duration-1000 ease-out" />
               </div>
               <div className="mt-[10px] flex justify-between text-[7px] font-semibold uppercase tracking-[0.13em] text-white/35">
                 <span>Pemula</span><span>Berkembang</span><span className="text-[#69EDAC]">Mandiri</span>
               </div>
             </div>
             <div className="mt-[37px] rounded-[19px] border border-white/20 bg-white/[0.09] px-[25px] py-[24px] text-center">
-              <p className="text-[50px] font-bold leading-none">78</p>
+              <PercentileCounter targetValue={78} />
               <p className="mt-[9px] text-[10px] font-semibold uppercase tracking-[0.1em] text-white/60">Persentil Kesiapan</p>
               <div className="my-[20px] h-px bg-white/10" />
               <p className="text-left text-[10px] leading-[1.55] text-white/60">"Skor Anda lebih tinggi dari 84% UMKM di kategori Toko Kelontong se-Jakarta Timur."</p>
@@ -120,13 +113,124 @@ export default function DashboardPage() {
   );
 }
 
-function MetricCard({ title, value, valueClass }) {
+function ScoreGauge({ score = 78 }) {
+  const [displayScore, setDisplayScore] = useState(0);
+
+  useEffect(() => {
+    let current = 0;
+    const duration = 1400;
+    const steps = 60;
+    const stepTime = duration / steps;
+    const increment = score / steps;
+
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= score) {
+        setDisplayScore(score);
+        clearInterval(timer);
+      } else {
+        setDisplayScore(Math.floor(current));
+      }
+    }, stepTime);
+
+    return () => clearInterval(timer);
+  }, [score]);
+
+  const radius = 84;
+  const circumference = 2 * Math.PI * radius;
+  const strokeDashoffset = circumference - (displayScore / 100) * circumference;
+
+  return (
+    <div className="relative flex h-[195px] w-[195px] items-center justify-center">
+      <svg className="absolute inset-0 h-full w-full -rotate-90 transform" viewBox="0 0 200 200">
+        <circle
+          cx="100"
+          cy="100"
+          r={radius}
+          className="stroke-[#E2E8F0]"
+          strokeWidth="14"
+          fill="transparent"
+        />
+        <circle
+          cx="100"
+          cy="100"
+          r={radius}
+          className="stroke-[#20A56B] transition-all duration-100 ease-out"
+          strokeWidth="14"
+          strokeDasharray={circumference}
+          strokeDashoffset={strokeDashoffset}
+          strokeLinecap="round"
+          fill="transparent"
+        />
+      </svg>
+      <div className="relative z-10 flex h-[155px] w-[155px] flex-col items-center justify-center rounded-full bg-white shadow-sm">
+        <p className="text-[39px] font-bold leading-none text-[#102A51]">
+          {displayScore}%
+        </p>
+        <p className="mt-[5px] text-[10px] text-[#333A45]">Kesehatan Bisnis</p>
+        <div className="mt-[12px] flex items-center gap-[5px] rounded-full bg-[#7DEBB1] px-[14px] py-[5px]">
+          <BadgeIcon /> <span className="text-[10px] font-semibold text-[#167C51]">Siap Naik Kelas</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MetricCard({ title, targetValue, valueClass }) {
+  const [val, setVal] = useState(0);
+
+  useEffect(() => {
+    let current = 0;
+    const duration = 1200;
+    const steps = 40;
+    const stepTime = duration / steps;
+    const increment = targetValue / steps;
+
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= targetValue) {
+        setVal(targetValue);
+        clearInterval(timer);
+      } else {
+        setVal(Math.floor(current));
+      }
+    }, stepTime);
+
+    return () => clearInterval(timer);
+  }, [targetValue]);
+
   return (
     <div className="rounded-[9px] border border-[#CBD2DC] bg-[#FAFAF9] px-[12px] py-[11px]">
       <p className="whitespace-nowrap text-[7px] font-bold tracking-[0.05em] text-[#555A61]">{title}</p>
-      <p className={"mt-[5px] text-[19px] font-bold " + valueClass}>{value}</p>
+      <p className={"mt-[5px] text-[19px] font-bold " + valueClass}>{val}%</p>
     </div>
   );
+}
+
+function PercentileCounter({ targetValue = 78 }) {
+  const [val, setVal] = useState(0);
+
+  useEffect(() => {
+    let current = 0;
+    const duration = 1400;
+    const steps = 50;
+    const stepTime = duration / steps;
+    const increment = targetValue / steps;
+
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= targetValue) {
+        setVal(targetValue);
+        clearInterval(timer);
+      } else {
+        setVal(Math.floor(current));
+      }
+    }, stepTime);
+
+    return () => clearInterval(timer);
+  }, [targetValue]);
+
+  return <p className="text-[50px] font-bold leading-none">{val}</p>;
 }
 
 function FactorCard({ title, description, status, type, icon }) {

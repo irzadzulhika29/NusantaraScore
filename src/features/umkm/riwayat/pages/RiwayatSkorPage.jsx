@@ -13,12 +13,12 @@ export default function RiwayatSkorPage() {
   ];
 
   const history = [
-    { month: "Jul", score: 78, tier: "Siap Naik Kelas", change: "Konsentrasi pelanggan ?", note: "â€”" },
-    { month: "Jun", score: 75, tier: "Siap Naik Kelas", change: "Rekening dipisahkan ?", note: "Perbaikan diterapkan" },
-    { month: "Mei", score: 71, tier: "Sedang Berkembang", change: "Pertumbuhan omzet ?", note: "â€”" },
-    { month: "Apr", score: 68, tier: "Sedang Berkembang", change: "â€”", note: "â€”" },
-    { month: "Mar", score: 65, tier: "Sedang Berkembang", change: "â€”", note: "â€”" },
-    { month: "Feb", score: 61, tier: "Sedang Berkembang", change: "Skor Perdana", note: "â€”" },
+    { month: "Jul", score: 78, tier: "Siap Naik Kelas", change: "Konsentrasi pelanggan", note: "—" },
+    { month: "Jun", score: 75, tier: "Siap Naik Kelas", change: "Rekening dipisahkan", note: "Perbaikan diterapkan" },
+    { month: "Mei", score: 71, tier: "Sedang Berkembang", change: "Pertumbuhan omzet", note: "—" },
+    { month: "Apr", score: 68, tier: "Sedang Berkembang", change: "—", note: "—" },
+    { month: "Mar", score: 65, tier: "Sedang Berkembang", change: "—", note: "—" },
+    { month: "Feb", score: 61, tier: "Sedang Berkembang", change: "Skor Perdana", note: "—" },
   ];
 
   const handleExportCSV = () => {
@@ -105,7 +105,7 @@ function ScoreChart() {
           <span className="absolute left-[25px] top-[5px] text-[10px] font-semibold text-[#1A9A60]">Ambang Siap Naik Kelas (75%)</span>
         </div>
         <div className="absolute bottom-[31px] left-[66%] top-[42px] border-l border-dashed border-[#9DA7B4]" />
-        <div className="absolute left-[53%] top-0 z-10 rounded-full bg-[#092A55] px-[15px] py-[8px] text-[11px] text-white shadow-[0_5px_10px_rgba(15,23,42,0.18)]">? +4% Â· Rekening usaha dipisahkan</div>
+        <div className="absolute left-[53%] top-0 z-10 rounded-full bg-[#092A55] px-[15px] py-[8px] text-[11px] text-white shadow-[0_5px_10px_rgba(15,23,42,0.18)]">▲ +4% • Rekening usaha dipisahkan</div>
         <div className="absolute bottom-[31px] left-0 right-0 top-[205px] bg-[#F3FAF6]" />
         <svg className="absolute bottom-[31px] left-0 h-[115px] w-full" viewBox="0 0 1000 115" preserveAspectRatio="none">
           <polyline points="0,15 190,28 380,37 570,46 760,58 1000,76" fill="none" stroke="#1EA366" strokeWidth="3" vectorEffect="non-scaling-stroke" />
